@@ -1,0 +1,280 @@
+.contacto {
+  position: relative;
+  background: #0a0a0a;
+  color: #fff;
+  padding: clamp(72px, 9vw, 128px) 0;
+  overflow: hidden;
+}
+
+/* Triángulo rojo — clip-path exacto del diseño */
+.contacto__triangle {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 150px; height: 150px;
+  background: #C70100;
+  clip-path: polygon(0 100%, 0 0, 100% 100%);
+  pointer-events: none;
+}
+
+.contacto__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 40px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(40px, 6vw, 80px);
+}
+
+/* ── Col info ── */
+.contacto__info {
+  flex: 1 1 380px;
+  min-width: 300px;
+}
+
+.contacto__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.contacto__eyebrow-dash {
+  display: inline-block;
+  width: 30px; height: 3px;
+  background: #C70100;
+  flex-shrink: 0;
+}
+
+.contacto__eyebrow-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #C70100;
+}
+
+.contacto__title {
+  margin: 0 0 20px;
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.contacto__desc {
+  margin: 0 0 40px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.72);
+  max-width: 46ch;
+}
+
+/* Datos */
+.contacto__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.contacto__dato {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* Cuadrado rojo 13x13px con margen top para alinearlo con el texto */
+.contacto__dato-sq {
+  display: inline-block;
+  width: 13px; height: 13px;
+  background: #C70100;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.contacto__dato-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.contacto__dato-val {
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 3px;
+}
+
+/* ── Formulario ── */
+.contacto__form-wrap {
+  flex: 1 1 420px;
+  min-width: 300px;
+}
+
+.contacto__form {
+  background: #fff;
+  color: #0a0a0a;
+  padding: clamp(30px, 3.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contacto__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contacto__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7a7a7a;
+  margin-bottom: 8px;
+}
+
+.contacto__input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e1e1e1;
+  background: #fafafa;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+  color: #0a0a0a;
+}
+.contacto__input::placeholder { color: #b3b3b3; }
+.contacto__input:focus {
+  border-color: #C70100;
+  background: #fff;
+}
+
+.contacto__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.contacto__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.contacto__row .contacto__field {
+  flex: 1 1 160px;
+}
+
+.contacto__textarea {
+  resize: vertical;
+}
+
+.contacto__submit {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  background: #C70100;
+  color: #fff;
+  padding: 18px;
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.contacto__submit:hover { background: #9d0100; }
+
+.contacto__submit-sq {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+/* Estado de éxito */
+.contacto__success {
+  background: #fff;
+  color: #0a0a0a;
+  padding: clamp(36px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 420px;
+  justify-content: center;
+}
+
+.contacto__success-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.contacto__success-check {
+  width: 22px; height: 22px;
+  background: #C70100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.contacto__success-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C70100;
+}
+
+.contacto__success-title {
+  margin: 0 0 14px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.contacto__success-desc {
+  margin: 0 0 30px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #5a5a5a;
+}
+
+.contacto__reset-btn {
+  background: #0a0a0a;
+  color: #fff;
+  padding: 15px 28px;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .contacto__triangle { width: 100px; height: 100px; }
+}

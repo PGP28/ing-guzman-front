@@ -1,0 +1,170 @@
+.hero {
+  position: relative;
+  background: #0a0a0a;
+  color: #fff;
+  overflow: hidden;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
+/* Textura diagonal */
+.hero__texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(125deg, #141414 0 26px, #1a1a1a 26px 52px);
+}
+
+/* Gradiente overlay para oscurecer más a la izquierda */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg,
+    rgba(8,8,8,0.95) 0%,
+    rgba(8,8,8,0.82) 42%,
+    rgba(8,8,8,0.45) 78%,
+    rgba(8,8,8,0.25) 100%
+  );
+}
+
+/* Triángulo rojo — clip-path exacto del diseño */
+.hero__triangle-red {
+  position: absolute;
+  top: 0; right: 0;
+  width: 170px; height: 170px;
+  background: #C70100;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  z-index: 1;
+}
+
+/* Bloque negro con borde derecho rojo, a la izquierda del triángulo */
+.hero__corner-block {
+  position: absolute;
+  top: 0;
+  right: 170px;
+  width: 60px; height: 60px;
+  background: #0a0a0a;
+  border-right: 6px solid #C70100;
+  z-index: 1;
+}
+
+/* Label inferior derecha */
+.hero__media-label {
+  position: absolute;
+  bottom: 18px; right: 24px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.32);
+  z-index: 2;
+}
+
+/* Contenido */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 120px clamp(20px, 5vw, 40px);
+}
+
+/* Eyebrow */
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 26px;
+}
+
+.hero__eyebrow-dash {
+  display: inline-block;
+  width: 34px; height: 3px;
+  background: #C70100;
+  flex-shrink: 0;
+}
+
+.hero__eyebrow-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* Título */
+.hero__title {
+  margin: 0;
+  font-size: clamp(40px, 6.4vw, 82px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  max-width: 16ch;
+}
+
+.hero__red { color: #C70100; }
+
+/* Descripción */
+.hero__desc {
+  margin: 28px 0 0;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.78);
+  max-width: 54ch;
+}
+
+/* Botones */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.hero__btn--red {
+  background: #C70100;
+  color: #fff;
+  padding: 18px 34px;
+}
+.hero__btn--red:hover {
+  background: #9d0100;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.hero__btn--outline {
+  border: 2px solid rgba(255,255,255,0.45);
+  color: #fff;
+  padding: 16px 32px;
+}
+.hero__btn--outline:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+
+.hero__btn-sq {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .hero__content { padding: 100px 24px 80px; }
+  .hero__triangle-red { width: 110px; height: 110px; }
+  .hero__corner-block { right: 110px; width: 44px; height: 44px; }
+}

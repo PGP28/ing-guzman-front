@@ -1,0 +1,149 @@
+/* ══════════════════════════════
+   FOOTER — transcripción exacta de Guzman_dc.html
+══════════════════════════════ */
+
+.footer {
+  background: #050505;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Montserrat', system-ui, sans-serif;
+  padding: clamp(56px,7vw,84px) 0 0;
+}
+
+/* ── Bloque principal: flex wrap exacto del diseño ── */
+.footer__main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px,5vw,40px) 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(36px,5vw,72px);
+}
+
+/* Brand: flex:2 1 320px exacto del diseño */
+.footer__brand {
+  flex: 2 1 320px;
+  min-width: 260px;
+}
+
+.footer__logo-wrap {
+  color: #fff;
+  margin-bottom: 22px;
+  display: block;
+}
+
+.footer__brand-desc {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.7;
+  max-width: 42ch;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Columnas: flex:1 1 150px exacto del diseño */
+.footer__col {
+  flex: 1 1 150px;
+  min-width: 140px;
+}
+
+.footer__col-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* Links navegación */
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__link {
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s ease;
+  display: block;
+}
+.footer__link:hover { color: #C70100; }
+
+/* Contacto */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+}
+
+.footer__contact span { display: block; }
+
+/* ── Barra inferior ── */
+.footer__bar {
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer__bar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px clamp(20px,5vw,40px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__bar-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.footer__copy {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+}
+
+.footer__admin {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: rgba(255,255,255,0.32);
+  transition: color 0.2s ease;
+}
+.footer__admin:hover { color: #C70100; }
+
+/* Sociales */
+.footer__socials {
+  display: flex;
+  gap: 8px;
+}
+
+.footer__social {
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+.footer__social:hover { background: #C70100; }

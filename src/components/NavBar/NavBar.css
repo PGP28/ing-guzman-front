@@ -1,0 +1,170 @@
+/* ══════════════════════════════════════════════
+   NAVBAR — transcripción exacta Guzman_dc.html
+   línea 29-66
+══════════════════════════════════════════════ */
+
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: saturate(140%) blur(8px);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid #ededed;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+/* Línea 30: height:84px, flex, space-between, gap:24px */
+.navbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px,5vw,40px);
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Línea 31: a con flex, shrink:0 */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #0a0a0a;
+  flex-shrink: 0;
+}
+
+/* Línea 32: transform:scale(0.84), transform-origin:left center
+   El logo base es 220×52px.
+   Visualmente: 185×44px.
+   DOM reserva: 220×52px → margen derecho negativo compensa el extra */
+.navbar-logo__scale {
+  transform: scale(0.84);
+  transform-origin: left center;
+  /* (220 - 185) = 35px extra reservado → compensar */
+  margin-right: -35px;
+  /* (52 - 44) / 2 = 4px de alto extra en cada lado → sin compensar
+     porque align-items:center ya lo centra */
+}
+
+/* Línea 38: nav flex, gap:34px */
+.navbar-nav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 34px;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Líneas 39-42 */
+.navbar-link {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: #2a2a2a;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+.navbar-link:hover { color: #C70100; }
+
+/* Línea 43: botón Cotizar */
+.navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #C70100;
+  color: #fff !important;
+  padding: 13px 24px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+.navbar-cta:hover { background: #9d0100; }
+
+/* Línea 44 */
+.navbar-cta__sq {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+/* Línea 50: hamburger — fondo negro, 46×46, padding 0 10px */
+.navbar-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 46px;
+  height: 46px;
+  padding: 0 10px;
+  background: #0a0a0a;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Líneas 51-53: 3 spans, altura 2px */
+.navbar-burger__w {
+  display: block;
+  height: 2px;
+  background: #fff;     /* líneas blancas */
+}
+.navbar-burger__r {
+  display: block;
+  height: 2px;
+  background: #C70100;  /* línea del medio roja */
+}
+
+/* Líneas 59-65: menú mobile */
+.navbar-mobile {
+  display: flex;
+  flex-direction: column;
+  padding: 8px clamp(20px,5vw,40px) 24px;
+  border-top: 1px solid #ededed;
+  background: #fff;
+}
+
+.navbar-mobile__link {
+  display: block;
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1a1a1a;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.navbar-mobile__cta {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  background: #C70100;
+  color: #fff;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* Responsive: < 920px mobile */
+@media (max-width: 920px) {
+  .navbar-nav    { display: none; }
+  .navbar-burger { display: flex; }
+}

@@ -1,0 +1,41 @@
+@keyframes gzspin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-page {
+  min-height: 100vh;
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  color: #fff;
+}
+
+.loading-spinner {
+  width: 46px; height: 46px;
+  border: 3px solid rgba(255,255,255,0.15);
+  border-top-color: #C70100;
+  border-radius: 50%;
+  animation: gzspin 0.9s linear infinite;
+}
+
+.loading-text {
+  text-align: center;
+}
+
+.loading-text__main {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.loading-text__email {
+  margin-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+}
