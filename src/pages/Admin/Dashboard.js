@@ -42,7 +42,7 @@ const ICONS = {
 /* ── Modal Proyecto ── */
 function ModalProyecto({ onClose, onSave }) {
   const [draft, setDraft] = useState({ nombre: '', categoria: 'Residencial', anio: '2026', ubicacion: '', descripcion: '', fotos: [], videoName: '', destacado: false });
-  const [dragZone, setDragZone] = useState(null);
+  const [dragZone, setDragZone] = useState(null); // eslint-disable-line no-unused-vars
   const fotosRef = useRef();
   const videoRef = useRef();
 

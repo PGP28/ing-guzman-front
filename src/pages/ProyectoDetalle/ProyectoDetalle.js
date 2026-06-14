@@ -210,6 +210,7 @@ export default function ProyectoDetalle({ slug }) {
   /* Proyectos relacionados: excluir el actual, mostrar 3 */
   const otros = OTROS_BASE.filter((o) => o.slug !== slug).slice(0, 3);
 
+  // eslint-disable-next-line no-unused-vars
   const goBack = (e) => {
     e.preventDefault();
     window.history.length > 1 ? window.history.back() : (window.location.href = '/');
