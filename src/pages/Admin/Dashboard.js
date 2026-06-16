@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Logo from '../../components/Logo/Logo';
 import './Dashboard.css';
 
@@ -35,6 +35,9 @@ const ICONS = {
   logout:      ['M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4', 'M16 17l5-5-5-5', 'M21 12H9'],
   upload:      ['M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4', 'M17 8l-5-5-5 5', 'M12 3v12'],
   video:       ['M23 7 16 12 23 17 23 7', 'M1 5h15v14H1z'],
+  download:    ['M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4', 'M7 10l5 5 5-5', 'M12 15V3'],
+  eye:         ['M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z', 'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'],
+  close:       ['M18 6L6 18', 'M6 6l12 12'],
 };
 
 /* LogoH reemplazado por componente <Logo /> */
@@ -265,6 +268,137 @@ function ModalTestimonio({ onClose, onSave }) {
   );
 }
 
+/* ── Helpers archivos ── */
+function formatSize(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  if (['jpg','jpeg','png','gif','webp'].includes(ext)) return '🖼️';
+  if (['pdf'].includes(ext)) return '📄';
+  if (['xls','xlsx','csv'].includes(ext)) return '📊';
+  if (['doc','docx'].includes(ext)) return '📝';
+  if (['dwg','dxf'].includes(ext)) return '📐';
+  if (['zip','rar','7z'].includes(ext)) return '🗜️';
+  return '📎';
+}
+
+function downloadFile(file) {
+  /* Crea un link temporal y dispara la descarga */
+  const link = document.createElement('a');
+  link.href = file.data;
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+/* ── Modal Detalle de Solicitud ── */
+function ModalSolicitud({ solicitud, onClose, onChangeEstado }) {
+  if (!solicitud) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-form modal-form--solicitud" onClick={(e) => e.stopPropagation()}>
+        {/* Header */}
+        <div className="modal-header">
+          <div>
+            <h2 className="modal-title">Detalle de solicitud</h2>
+            <div className="modal-subtitle">{solicitud.fecha}</div>
+          </div>
+          <button type="button" className="modal-close" onClick={onClose} aria-label="Cerrar">×</button>
+        </div>
+
+        {/* Body */}
+        <div className="modal-body sol-modal__body">
+          {/* Cliente */}
+          <div className="sol-modal__cliente">
+            <div className="sol-modal__avatar">{solicitud.nombre.charAt(0)}</div>
+            <div className="sol-modal__cliente-info">
+              <div className="sol-modal__cliente-nombre">{solicitud.nombre}</div>
+              <a className="sol-modal__cliente-contact" href={`tel:${(solicitud.telefono || '').replace(/\s/g,'')}`}>☎ {solicitud.telefono || 'Sin teléfono'}</a>
+              <a className="sol-modal__cliente-contact" href={`mailto:${solicitud.emailUser}@${solicitud.emailDomain}`}>✉ {solicitud.emailUser}@{solicitud.emailDomain}</a>
+            </div>
+            <select
+              value={solicitud.estado}
+              onChange={(e) => onChangeEstado(solicitud.id, e.target.value)}
+              className="sol-modal__estado"
+              style={estadoBadge(solicitud.estado)}
+            >
+              <option value="Nueva">Nueva</option>
+              <option value="Contactado">Contactado</option>
+              <option value="Cerrada">Cerrada</option>
+            </select>
+          </div>
+
+          {/* Título */}
+          {solicitud.titulo && (
+            <div className="sol-modal__seccion">
+              <div className="sol-modal__seccion-label">Título</div>
+              <div className="sol-modal__titulo">{solicitud.titulo}</div>
+            </div>
+          )}
+
+          {/* Tipo de proyecto */}
+          <div className="sol-modal__seccion">
+            <div className="sol-modal__seccion-label">Tipo de proyecto</div>
+            <span className="sol-modal__tipo-chip">{solicitud.tipo}</span>
+          </div>
+
+          {/* Descripción completa */}
+          <div className="sol-modal__seccion">
+            <div className="sol-modal__seccion-label">Descripción del proyecto</div>
+            <p className="sol-modal__descripcion">{solicitud.mensaje || '(sin descripción)'}</p>
+          </div>
+
+          {/* Archivos adjuntos */}
+          {solicitud.archivos && solicitud.archivos.length > 0 && (
+            <div className="sol-modal__seccion">
+              <div className="sol-modal__seccion-label">
+                Archivos adjuntos ({solicitud.archivos.length})
+              </div>
+              <ul className="sol-modal__files">
+                {solicitud.archivos.map((f, i) => (
+                  <li key={i} className="sol-modal__file">
+                    <span className="sol-modal__file-icon">{fileIcon(f.name)}</span>
+                    <div className="sol-modal__file-info">
+                      <div className="sol-modal__file-name" title={f.name}>{f.name}</div>
+                      <div className="sol-modal__file-size">{formatSize(f.size)}</div>
+                    </div>
+                    <button
+                      type="button"
+                      className="sol-modal__file-download"
+                      onClick={() => downloadFile(f)}
+                      title="Descargar"
+                    >
+                      <Icon paths={ICONS.download} size={16} />
+                      <span>Descargar</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="modal-footer">
+          <button type="button" className="modal-btn modal-btn--cancel" onClick={onClose}>Cerrar</button>
+          <a
+            href={`mailto:${solicitud.emailUser}@${solicitud.emailDomain}?subject=Tu%20solicitud%20de%20cotización%20-%20Guzman%20Ingeniería`}
+            className="modal-btn modal-btn--save"
+          >
+            Responder por email
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── DASHBOARD PRINCIPAL ── */
 const INIT_PROJECTS = [
   { id: 1, nombre: 'Casa Las Lomas', categoria: 'Residencial', ubicacion: 'Zona Norte', anio: '2025', descripcion: '', fotos: [], videoName: '', destacado: true },
@@ -280,10 +414,10 @@ const INIT_TESTIMONIOS = [
 ];
 
 const INIT_SOLICITUDES = [
-  { id: 1, nombre: 'Andrea Fuentes', emailUser: 'andrea.fuentes', emailDomain: 'gmail.com', telefono: '+1 (555) 102-3344', tipo: 'Construcción de casa', fecha: '12 Jun 2026', estado: 'Nueva', mensaje: 'Quiero construir una casa de dos pisos en un terreno de 200m².' },
-  { id: 2, nombre: 'Roberto Salas', emailUser: 'rsalas', emailDomain: 'outlook.com', telefono: '+1 (555) 887-1200', tipo: 'Remodelación / ampliación', fecha: '11 Jun 2026', estado: 'Nueva', mensaje: 'Necesito ampliar la cocina y agregar un cuarto.' },
-  { id: 3, nombre: 'Inversiones del Valle', emailUser: 'contacto', emailDomain: 'delvalle.com', telefono: '+1 (555) 440-9981', tipo: 'Ingeniería estructural', fecha: '9 Jun 2026', estado: 'Contactado', mensaje: 'Solicitamos cálculo estructural para un local comercial.' },
-  { id: 4, nombre: 'Familia Pérez', emailUser: 'perez.hogar', emailDomain: 'gmail.com', telefono: '+1 (555) 332-7788', tipo: 'Remodelación / ampliación', fecha: '5 Jun 2026', estado: 'Cerrada', mensaje: 'Remodelación de dos baños completos.' },
+  { id: 1, nombre: 'Andrea Fuentes', emailUser: 'andrea.fuentes', emailDomain: 'gmail.com', telefono: '+1 (555) 102-3344', titulo: 'Casa 2 pisos zona norte', tipo: 'Construcción de casa', fecha: '12 Jun 2026', estado: 'Nueva', mensaje: 'Quiero construir una casa de dos pisos en un terreno de 200m².', archivos: [] },
+  { id: 2, nombre: 'Roberto Salas', emailUser: 'rsalas', emailDomain: 'outlook.com', telefono: '+1 (555) 887-1200', titulo: 'Ampliación cocina + cuarto', tipo: 'Remodelación / ampliación', fecha: '11 Jun 2026', estado: 'Nueva', mensaje: 'Necesito ampliar la cocina y agregar un cuarto.', archivos: [] },
+  { id: 3, nombre: 'Inversiones del Valle', emailUser: 'contacto', emailDomain: 'delvalle.com', telefono: '+1 (555) 440-9981', titulo: 'Cálculo estructural local comercial', tipo: 'Ingeniería estructural', fecha: '9 Jun 2026', estado: 'Contactado', mensaje: 'Solicitamos cálculo estructural para un local comercial.', archivos: [] },
+  { id: 4, nombre: 'Familia Pérez', emailUser: 'perez.hogar', emailDomain: 'gmail.com', telefono: '+1 (555) 332-7788', titulo: 'Remodelación dos baños', tipo: 'Remodelación / ampliación', fecha: '5 Jun 2026', estado: 'Cerrada', mensaje: 'Remodelación de dos baños completos.', archivos: [] },
 ];
 
 const NAV_DEFS = [
@@ -305,9 +439,28 @@ export default function Dashboard({ onSignOut }) {
   const [projects, setProjects] = useState(INIT_PROJECTS);
   const [testimonios, setTestimonios] = useState(INIT_TESTIMONIOS);
   const [solicitudes, setSolicitudes] = useState(INIT_SOLICITUDES);
+  const [selectedSolicitud, setSelectedSolicitud] = useState(null);
   const [modal, setModal] = useState(null);
   const [estadoFilter, setEstadoFilter] = useState('Todas');
   const [sidebarWide, setSidebarWide] = useState(true);
+
+  /* Cargar solicitudes nuevas del localStorage (las que crea el formulario público)
+     y mergear con las iniciales mostrándolas arriba */
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem('solicitudes') || '[]');
+      if (stored.length > 0) {
+        setSolicitudes((prev) => {
+          /* Evitar duplicados por id */
+          const existingIds = new Set(prev.map((p) => p.id));
+          const news = stored.filter((s) => !existingIds.has(s.id));
+          return [...news, ...prev];
+        });
+      }
+    } catch (err) {
+      console.error('Error leyendo solicitudes:', err);
+    }
+  }, []);
 
   const nuevas = solicitudes.filter((s) => s.estado === 'Nueva').length;
   const [title, subtitle] = SECTION_TITLES[section];
@@ -561,10 +714,13 @@ export default function Dashboard({ onSignOut }) {
                   </thead>
                   <tbody>
                     {filteredSolicitudes.map((r) => (
-                      <tr key={r.id} className="sol-table__row">
+                      <tr key={r.id} className="sol-table__row sol-table__row--clickable" onClick={() => setSelectedSolicitud(r)}>
                         <td className="sol-table__td">
                           <div className="sol-td-nombre">{r.nombre}</div>
-                          <div className="sol-td-mensaje">{r.mensaje}</div>
+                          <div className="sol-td-mensaje">{r.titulo || r.mensaje}</div>
+                          {r.archivos && r.archivos.length > 0 && (
+                            <div className="sol-td-files">📎 {r.archivos.length} archivo{r.archivos.length !== 1 ? 's' : ''}</div>
+                          )}
                         </td>
                         <td className="sol-table__td">
                           <div className="sol-td-tel">{r.telefono}</div>
@@ -574,7 +730,7 @@ export default function Dashboard({ onSignOut }) {
                           <span className="sol-td-tipo">{r.tipo}</span>
                         </td>
                         <td className="sol-table__td sol-td-fecha">{r.fecha}</td>
-                        <td className="sol-table__td">
+                        <td className="sol-table__td" onClick={(e) => e.stopPropagation()}>
                           <select
                             value={r.estado}
                             onChange={(e) => setEstado(r.id, e.target.value)}
@@ -594,7 +750,7 @@ export default function Dashboard({ onSignOut }) {
               {/* CARDS — mobile + tablet (visible ≤1024px) */}
               <div className="sol-cards">
                 {filteredSolicitudes.map((r) => (
-                  <article key={r.id} className="sol-card">
+                  <article key={r.id} className="sol-card" onClick={() => setSelectedSolicitud(r)}>
                     <div className="sol-card__head">
                       <div className="sol-card__avatar">{r.nombre.charAt(0)}</div>
                       <div className="sol-card__head-info">
@@ -604,6 +760,7 @@ export default function Dashboard({ onSignOut }) {
                       <select
                         value={r.estado}
                         onChange={(e) => setEstado(r.id, e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
                         className="sol-card__estado-select"
                         style={{ ...estadoBadge(r.estado) }}
                       >
@@ -613,14 +770,15 @@ export default function Dashboard({ onSignOut }) {
                       </select>
                     </div>
 
+                    {r.titulo && <div className="sol-card__titulo">{r.titulo}</div>}
                     <p className="sol-card__mensaje">{r.mensaje}</p>
 
                     <div className="sol-card__contacto">
-                      <a href={`tel:${r.telefono.replace(/\s/g,'')}`} className="sol-card__contacto-row">
+                      <a href={`tel:${r.telefono.replace(/\s/g,'')}`} className="sol-card__contacto-row" onClick={(e) => e.stopPropagation()}>
                         <Icon paths={['M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z']} size={14} />
                         <span>{r.telefono}</span>
                       </a>
-                      <a href={`mailto:${r.emailUser}@${r.emailDomain}`} className="sol-card__contacto-row">
+                      <a href={`mailto:${r.emailUser}@${r.emailDomain}`} className="sol-card__contacto-row" onClick={(e) => e.stopPropagation()}>
                         <Icon paths={['M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z','M22 6l-10 7L2 6']} size={14} />
                         <span>{r.emailUser}@{r.emailDomain}</span>
                       </a>
@@ -628,6 +786,9 @@ export default function Dashboard({ onSignOut }) {
 
                     <div className="sol-card__footer">
                       <span className="sol-card__tipo">{r.tipo}</span>
+                      {r.archivos && r.archivos.length > 0 && (
+                        <span className="sol-card__files-badge">📎 {r.archivos.length}</span>
+                      )}
                     </div>
                   </article>
                 ))}
@@ -641,6 +802,16 @@ export default function Dashboard({ onSignOut }) {
       {/* ── Modales ── */}
       {modal === 'proyecto' && <ModalProyecto onClose={() => setModal(null)} onSave={addProject} />}
       {modal === 'testimonio' && <ModalTestimonio onClose={() => setModal(null)} onSave={addTestimonio} />}
+      {selectedSolicitud && (
+        <ModalSolicitud
+          solicitud={selectedSolicitud}
+          onClose={() => setSelectedSolicitud(null)}
+          onChangeEstado={(id, v) => {
+            setEstado(id, v);
+            setSelectedSolicitud((s) => s && s.id === id ? { ...s, estado: v } : s);
+          }}
+        />
+      )}
 
       {/* ── BOTTOM NAV MOBILE ──
           Solo visible en pantallas <=768px, controlado por CSS */}
