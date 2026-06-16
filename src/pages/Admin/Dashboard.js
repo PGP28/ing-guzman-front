@@ -549,6 +549,7 @@ export default function Dashboard({ onSignOut }) {
                 ))}
               </div>
 
+              {/* TABLA — desktop (visible >1024px) */}
               <div className="sol-table-wrap">
                 <table className="sol-table">
                   <thead>
@@ -589,6 +590,48 @@ export default function Dashboard({ onSignOut }) {
                   </tbody>
                 </table>
               </div>
+
+              {/* CARDS — mobile + tablet (visible ≤1024px) */}
+              <div className="sol-cards">
+                {filteredSolicitudes.map((r) => (
+                  <article key={r.id} className="sol-card">
+                    <div className="sol-card__head">
+                      <div className="sol-card__avatar">{r.nombre.charAt(0)}</div>
+                      <div className="sol-card__head-info">
+                        <div className="sol-card__nombre">{r.nombre}</div>
+                        <div className="sol-card__fecha">{r.fecha}</div>
+                      </div>
+                      <select
+                        value={r.estado}
+                        onChange={(e) => setEstado(r.id, e.target.value)}
+                        className="sol-card__estado-select"
+                        style={{ ...estadoBadge(r.estado) }}
+                      >
+                        <option value="Nueva">Nueva</option>
+                        <option value="Contactado">Contactado</option>
+                        <option value="Cerrada">Cerrada</option>
+                      </select>
+                    </div>
+
+                    <p className="sol-card__mensaje">{r.mensaje}</p>
+
+                    <div className="sol-card__contacto">
+                      <a href={`tel:${r.telefono.replace(/\s/g,'')}`} className="sol-card__contacto-row">
+                        <Icon paths={['M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z']} size={14} />
+                        <span>{r.telefono}</span>
+                      </a>
+                      <a href={`mailto:${r.emailUser}@${r.emailDomain}`} className="sol-card__contacto-row">
+                        <Icon paths={['M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z','M22 6l-10 7L2 6']} size={14} />
+                        <span>{r.emailUser}@{r.emailDomain}</span>
+                      </a>
+                    </div>
+
+                    <div className="sol-card__footer">
+                      <span className="sol-card__tipo">{r.tipo}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </>
           )}
 
@@ -598,6 +641,32 @@ export default function Dashboard({ onSignOut }) {
       {/* ── Modales ── */}
       {modal === 'proyecto' && <ModalProyecto onClose={() => setModal(null)} onSave={addProject} />}
       {modal === 'testimonio' && <ModalTestimonio onClose={() => setModal(null)} onSave={addTestimonio} />}
+
+      {/* ── BOTTOM NAV MOBILE ──
+          Solo visible en pantallas <=768px, controlado por CSS */}
+      <nav className="bottom-nav">
+        {NAV_DEFS.map((n) => {
+          const active = section === n.key;
+          const isSolicitudes = n.key === 'solicitudes';
+          return (
+            <button
+              key={n.key}
+              type="button"
+              className={`bottom-nav__item${active ? ' bottom-nav__item--active' : ''}`}
+              onClick={() => setSection(n.key)}
+              aria-label={n.label}
+            >
+              <div className="bottom-nav__icon-wrap">
+                <Icon paths={n.paths} size={20} />
+                {isSolicitudes && nuevas > 0 && (
+                  <span className="bottom-nav__badge">{nuevas}</span>
+                )}
+              </div>
+              <span className="bottom-nav__label">{n.label}</span>
+            </button>
+          );
+        })}
+      </nav>
     </div>
   );
 }

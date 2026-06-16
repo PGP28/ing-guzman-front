@@ -4,13 +4,10 @@
   box-sizing: border-box;
 }
 
-/* Línea 16 del diseño: scroll-padding-top:84px */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
 }
 
-/* Línea 17: padding-top compensa navbar fixed de 84px */
 body {
   margin: 0;
   padding: 0;
@@ -21,6 +18,11 @@ body {
   background: #ffffff;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Mobile: navbar más compacto (62px) */
+@media (max-width: 768px) {
+  body { padding-top: 62px; }
 }
 
 button, input, select, textarea {

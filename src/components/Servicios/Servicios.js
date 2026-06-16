@@ -22,7 +22,10 @@ const SERVICIOS = [
 export default function Servicios() {
   const scrollToContact = (e) => {
     e.preventDefault();
-    document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.querySelector('#contacto');
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 84;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (

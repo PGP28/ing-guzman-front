@@ -4,7 +4,10 @@ import './Hero.css';
 export default function Hero() {
   const scrollTo = (e, href) => {
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.querySelector(href);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY - 84;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (

@@ -18,11 +18,12 @@ import React from 'react';
     scale    factor de escala (default 1.0 — el navbar pasa 0.84)
 */
 
-/* El SVG exacto del diseño: height/width vía font-size del padre */
+/* El SVG exacto del diseño: height/width vía font-size del padre
+   viewBox expandido 8px en cada lado para que strokeWidth:15 no se corte */
 const Mark = ({ color }) => (
   <svg
-    viewBox="0 0 128 118"
-    style={{ display: 'block', height: '1em', width: 'auto', overflow: 'visible' }}
+    viewBox="-8 -8 144 134"
+    style={{ display: 'block', height: '1em', width: 'auto', overflow: 'hidden' }}
     aria-hidden="true"
   >
     <g fill="none" stroke={color} strokeWidth={15}

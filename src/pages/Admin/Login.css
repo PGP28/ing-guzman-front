@@ -248,3 +248,31 @@
   font-weight: 500;
   color: rgba(255,255,255,0.34);
 }
+
+/* ══ RESPONSIVE ══ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .login-tri-tr  { width: 150px; height: 150px; }
+  .login-tri-bl  { width: 120px; height: 120px; }
+  .login-card    { max-width: 430px; }
+  .login-card__title { font-size: 27px; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .login-page      { padding: 30px 18px; }
+  .login-tri-tr    { width: 110px; height: 110px; }
+  .login-tri-bl    { display: none; }
+  .login-back      { top: 22px; left: 22px; padding: 8px 12px; font-size: 12px; }
+  .login-card      { max-width: 100%; }
+  .login-card__title    { font-size: 24px; }
+  .login-card__subtitle { font-size: 13.5px; }
+  .login-google-btn { padding: 16px; font-size: 14px; margin-top: 30px; }
+  .login-google-icon { width: 20px; height: 20px; }
+  .login-divider   { margin: 24px 0; }
+  .login-divider__text { font-size: 10px; }
+  .login-notice    { padding: 15px; }
+  .login-notice__text { font-size: 12px; }
+  .login-footer-text  { font-size: 11px; margin-top: 24px; }
+}

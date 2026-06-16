@@ -1,23 +1,20 @@
 .testimonios {
   background: #fff;
-  padding: clamp(72px, 9vw, 128px) 0;
+  padding: clamp(48px,9vw,128px) 0;
 }
 
 .testimonios__inner {
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 clamp(20px, 5vw, 40px);
+  padding: 0 clamp(20px,5vw,40px);
+  text-align: center;
 }
 
-/* Eyebrow centrado */
-.testimonios__eyebrow {
+.testimonios__eyebrow-wrap {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
-  margin-bottom: 20px;
-  /* Centrado en el contenedor */
-  display: flex;
-  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
 }
 
 .testimonios__eyebrow-line {
@@ -28,7 +25,7 @@
 }
 
 .testimonios__eyebrow-text {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -36,78 +33,84 @@
 }
 
 .testimonios__title {
-  margin: 0 auto clamp(40px, 5vw, 60px);
-  max-width: 600px;
-  text-align: center;
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-size: clamp(25px,3.6vw,44px);
   font-weight: 800;
-  line-height: 1.1;
   letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 clamp(28px,5vw,56px);
 }
 
-/* Grid */
 .testimonios__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 18px;
+  text-align: left;
 }
 
-/* Card — borde inferior rojo 4px como parte del article */
 .testimonios__card {
   background: #f4f4f3;
-  padding: 36px 34px;
+  padding: clamp(22px,3vw,32px) clamp(20px,3vw,28px);
   border-bottom: 4px solid #C70100;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
-/* Comilla: Georgia serif, 60px, line-height 0.6, altura contenedor 34px */
 .testimonios__quote {
   font-family: Georgia, serif;
-  font-size: 60px;
+  font-size: 50px;
   line-height: 0.6;
   color: #C70100;
-  height: 34px;
+  height: 28px;
   overflow: hidden;
   flex-shrink: 0;
+  margin-bottom: 14px;
+  display: block;
 }
 
 .testimonios__text {
-  margin: 0 0 28px;
-  font-size: 15.5px;
+  margin: 0 0 22px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.7;
   color: #333;
   flex: 1;
 }
 
-/* Author */
 .testimonios__author {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   margin-top: auto;
 }
 
-/* Avatar circular con textura diagonal clara */
 .testimonios__avatar {
-  width: 46px; height: 46px;
+  width: 42px; height: 42px;
   border-radius: 50%;
-  background: repeating-linear-gradient(125deg, #dcdcdc 0 8px, #e7e7e7 8px 16px);
+  background: repeating-linear-gradient(125deg,#dcdcdc 0 7px,#e7e7e7 7px 14px);
   flex-shrink: 0;
 }
 
 .testimonios__name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
 }
 
 .testimonios__tipo {
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #8a8a8a;
 }
 
+/* ────────── Responsive ────────── */
+
+/* Tablet — 2 columnas */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .testimonios__grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Mobile — 1 columna */
 @media (max-width: 768px) {
-  .testimonios__grid { grid-template-columns: 1fr; }
+  .testimonios__inner { padding: 0 22px; }
+  .testimonios__grid  { grid-template-columns: 1fr; gap: 14px; }
 }

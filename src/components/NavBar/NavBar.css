@@ -1,8 +1,3 @@
-/* ══════════════════════════════════════════════
-   NAVBAR — transcripción exacta Guzman_dc.html
-   línea 29-66
-══════════════════════════════════════════════ */
-
 .navbar-wrapper {
   position: fixed;
   top: 0;
@@ -14,43 +9,42 @@
   -webkit-backdrop-filter: saturate(140%) blur(8px);
   border-bottom: 1px solid #ededed;
   font-family: 'Montserrat', system-ui, sans-serif;
+  height: 84px;
 }
 
-/* Línea 30: height:84px, flex, space-between, gap:24px */
 .navbar-inner {
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 clamp(20px,5vw,40px);
-  height: 84px;
+  height: 100%;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  flex-wrap: nowrap;
 }
 
-/* Línea 31: a con flex, shrink:0 */
+/* Logo */
 .navbar-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #0a0a0a;
   flex-shrink: 0;
+  height: 44px;
 }
 
-/* Línea 32: transform:scale(0.84), transform-origin:left center
-   El logo base es 220×52px.
-   Visualmente: 185×44px.
-   DOM reserva: 220×52px → margen derecho negativo compensa el extra */
 .navbar-logo__scale {
   transform: scale(0.84);
   transform-origin: left center;
-  /* (220 - 185) = 35px extra reservado → compensar */
   margin-right: -35px;
-  /* (52 - 44) / 2 = 4px de alto extra en cada lado → sin compensar
-     porque align-items:center ya lo centra */
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 
-/* Línea 38: nav flex, gap:34px */
+/* Nav desktop */
 .navbar-nav {
   display: flex !important;
   flex-direction: row !important;
@@ -58,12 +52,10 @@
   gap: 34px;
   flex-shrink: 0;
   flex-wrap: nowrap;
-  list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* Líneas 39-42 */
 .navbar-link {
   font-size: 14px;
   font-weight: 600;
@@ -75,7 +67,6 @@
 }
 .navbar-link:hover { color: #C70100; }
 
-/* Línea 43: botón Cotizar */
 .navbar-cta {
   display: inline-flex;
   align-items: center;
@@ -94,7 +85,6 @@
 }
 .navbar-cta:hover { background: #9d0100; }
 
-/* Línea 44 */
 .navbar-cta__sq {
   display: inline-block;
   width: 7px;
@@ -103,7 +93,7 @@
   flex-shrink: 0;
 }
 
-/* Línea 50: hamburger — fondo negro, 46×46, padding 0 10px */
+/* Hamburger */
 .navbar-burger {
   display: none;
   flex-direction: column;
@@ -118,30 +108,37 @@
   flex-shrink: 0;
 }
 
-/* Líneas 51-53: 3 spans, altura 2px */
 .navbar-burger__w {
   display: block;
   height: 2px;
-  background: #fff;     /* líneas blancas */
+  background: #fff;
 }
 .navbar-burger__r {
   display: block;
   height: 2px;
-  background: #C70100;  /* línea del medio roja */
+  background: #C70100;
 }
 
-/* Líneas 59-65: menú mobile */
+/* Menú mobile — drawer desde arriba */
 .navbar-mobile {
+  position: fixed;
+  top: 84px;
+  left: 0;
+  right: 0;
+  z-index: 59;
   display: flex;
   flex-direction: column;
-  padding: 8px clamp(20px,5vw,40px) 24px;
+  padding: 12px 22px 24px;
   border-top: 1px solid #ededed;
   background: #fff;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
 }
 
 .navbar-mobile__link {
   display: block;
-  padding: 14px 0;
+  padding: 16px 0;
   font-size: 16px;
   font-weight: 600;
   text-decoration: none;
@@ -150,9 +147,11 @@
 }
 
 .navbar-mobile__cta {
-  display: block;
-  margin-top: 16px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
   background: #C70100;
   color: #fff;
   padding: 15px;
@@ -163,8 +162,33 @@
   text-decoration: none;
 }
 
-/* Responsive: < 920px mobile */
-@media (max-width: 920px) {
-  .navbar-nav    { display: none; }
-  .navbar-burger { display: flex; }
+.navbar-mobile__cta-sq {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #fff;
+}
+
+/* ────────── Responsive ────────── */
+
+/* Tablet — sigue siendo desktop pero reduce gap del nav */
+@media (max-width: 1024px) {
+  .navbar-inner { gap: 16px; padding: 0 clamp(16px,4vw,32px); }
+  .navbar-nav   { gap: 22px; }
+  .navbar-link  { font-size: 13px; }
+  .navbar-cta   { padding: 12px 20px; font-size: 12px; }
+}
+
+/* Mobile — oculta links + CTA, muestra hamburger */
+@media (max-width: 768px) {
+  .navbar-wrapper { height: 62px; }
+  .navbar-inner   { padding: 0 18px; gap: 12px; }
+  .navbar-nav     { display: none !important; }
+  .navbar-burger  { display: flex; width: 40px; height: 40px; }
+  .navbar-mobile  { top: 62px; max-height: calc(100vh - 62px); }
+  .navbar-logo    { height: 36px; }
+  .navbar-logo__scale {
+    transform: scale(0.7);
+    margin-right: -50px;
+  }
 }

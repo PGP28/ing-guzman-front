@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../Logo/Logo';
+import { handleNavClick } from '../../utils/scrollTo';
 import './NavBar.css';
 
 const NAV_LINKS = [
@@ -13,9 +14,8 @@ export default function NavBar() {
   const [open, setOpen] = useState(false);
 
   const handleLink = (e, href) => {
-    e.preventDefault();
     setOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    handleNavClick(e, href);
   };
 
   return (

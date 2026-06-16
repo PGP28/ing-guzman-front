@@ -784,15 +784,84 @@
 .pd-footer__back-link:hover { color: #C70100; }
 
 /* ══ RESPONSIVE ══ */
-@media (max-width: 768px) {
-  .pd-gallery__thumbs { grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  .pd-hero__body      { flex-direction: column; align-items: flex-start; }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .pd-header__inner   { height: 68px; padding: 0 clamp(20px,4vw,32px); }
+  .pd-hero            { padding: 30px 0 40px; }
+  .pd-hero__back      { margin-bottom: 20px; font-size: 12.5px; }
+  .pd-hero__title     { font-size: 44px; }
+  .pd-hero__intro     { font-size: 15px; margin-top: 16px; }
+  .pd-hero__meta-val  { font-size: 16px; }
+  .pd-desc            { padding: 0 0 clamp(40px,5vw,60px); }
+  .pd-desc__inner     { gap: clamp(28px,4vw,36px); }
+  .pd-desc__subtitle  { font-size: 28px; }
+  .pd-desc__p         { font-size: 15px; }
+  .pd-aside           { flex: 0 0 280px; }
+  .pd-ficha           { padding: 24px 22px; top: 88px; }
+  .pd-highlights__value { font-size: 26px; }
   .pd-video__player   { aspect-ratio: 16/9; }
-  .pd-gallery__play-btn { width: 60px; height: 60px; }
-  .pd-aside           { position: static; }
-  .pd-ficha           { position: static; }
+  .pd-otros__grid     { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 480px) {
-  .pd-gallery__thumbs { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+/* Mobile */
+@media (max-width: 768px) {
+  .pd-header__inner   { height: 60px; padding: 0 18px; }
+  .pd-header__cta     { padding: 9px 16px; font-size: 11px; }
+
+  .pd-hero            { padding: 24px 0 34px; }
+  .pd-hero__inner     { padding: 0 22px; }
+  .pd-hero__back      { margin-bottom: 18px; font-size: 12px; }
+  .pd-hero__body      { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .pd-hero__chip      { font-size: 10px; padding: 5px 11px; margin-bottom: 14px; }
+  .pd-hero__title     { font-size: 32px; }
+  .pd-hero__intro     { font-size: 14px; margin-top: 14px; }
+  .pd-hero__meta      { gap: 26px; }
+  .pd-hero__meta-label{ font-size: 10px; }
+  .pd-hero__meta-val  { font-size: 15px; }
+  .pd-hero__triangle  { width: 90px; height: 90px; }
+
+  .pd-gallery         { padding: 24px 0; }
+  .pd-gallery__inner  { padding: 0 22px; }
+  .pd-gallery__visor  { aspect-ratio: 16/10; }
+  .pd-gallery__thumbs { gap: 7px; margin-top: 10px; }
+  .pd-gallery__play-btn { width: 60px; height: 60px; }
+  .pd-gallery__placeholder { font-size: 10px; left: 14px; bottom: 12px; }
+  .pd-gallery__counter { font-size: 10px; right: 14px; top: 12px; padding: 4px 9px; }
+
+  .pd-desc            { padding: 0 0 clamp(36px,6vw,48px); }
+  .pd-desc__inner     { padding: 0 22px; flex-direction: column; gap: 18px; }
+  .pd-desc__left      { flex: 1 1 100%; }
+  .pd-desc__subtitle  { font-size: 23px; }
+  .pd-desc__p         { font-size: 14px; line-height: 1.7; }
+  .pd-highlights      { grid-template-columns: 1fr 1fr 1fr; margin-top: 22px; }
+  .pd-highlights__item { padding: 18px 12px; }
+  .pd-highlights__value { font-size: 22px; }
+  .pd-highlights__label { font-size: 11px; }
+
+  /* Ficha: deja de ser sticky, va abajo del contenido */
+  .pd-aside           { flex: 1 1 100%; min-width: 0; }
+  .pd-ficha           { position: static; padding: 22px 20px; }
+  .pd-ficha__title    { font-size: 13px; }
+  .pd-ficha__cta      { padding: 22px 20px; margin-top: 14px; }
+  .pd-ficha__cta-title { font-size: 16px; }
+
+  .pd-video           { padding: clamp(40px,7vw,60px) 0; }
+  .pd-video__inner    { padding: 0 22px; }
+  .pd-video__player   { aspect-ratio: 16/9; }
+  .pd-video__play-btn { width: 70px; height: 70px; }
+
+  .pd-otros           { padding: clamp(40px,7vw,60px) 0; }
+  .pd-otros__inner    { padding: 0 22px; }
+  .pd-otros__title    { font-size: 26px; }
+  .pd-otros__grid     { grid-template-columns: 1fr; gap: 12px; }
+
+  .pd-footer__main    { padding: 50px 22px 36px; gap: 28px; }
+  .pd-footer__brand   { flex: 1 1 100%; }
+  .pd-footer__contact-col { flex: 1 1 100%; }
+  .pd-footer__bottom  {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px 22px;
+  }
 }
